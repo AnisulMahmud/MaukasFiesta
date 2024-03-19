@@ -1,0 +1,217 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets//fonts/Poppins-Regular.ttf');
+}
+
+* {
+  margin: 0;
+  
+
+}
+
+.content {
+ 
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f1e1e5;
+  background-image: url('./assets/food-drink.gif');
+  background-size: cover;
+  min-height: 80vh;
+}
+
+.home {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #59596b;
+
+}
+
+
+
+.navbar {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  background: url('./assets//nav.gif');
+  background-size: cover;
+  
+}
+.navbar h1 {
+  color: #f8f3f5;
+  margin-right: auto;
+  font-size: 30px;
+  font-weight: bolder;
+  
+}
+.navbar span {
+  color: #ce2759;
+  font-weight: bolder;
+
+}
+
+.searchbar{
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
+.search-input{
+
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f99191;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #ffffff;
+  transition: border-color 0.25s;
+  margin-right: 5px;
+
+}
+
+.submit {
+  background-color: #59596b;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 0.7em 1.2em;
+}
+
+.submit:hover {
+  background-color: #ce2759;
+  cursor: pointer;
+}
+.toggle-container {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  /* text-align: left; */
+  font-weight: bolder;
+}
+
+
+
+.temp-toggle {
+  appearance: none;
+  outline: none;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0; 
+  margin-left: 460px;  
+  margin-right: 5px;
+}
+
+.temp-toggle:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.2s;
+}
+
+.temp-toggle:checked {
+  background-color: #cf252d;
+}
+
+.temp-toggle:checked:before {
+  left: 22px;
+}
+
+.temp-toggle:hover {
+  background-color: #b4bbb5;
+}
+
+.temp-toggle:checked:hover {
+  background-color: #8e8484;
+}
+
+.products-container{
+  display: flex; 
+  justify-content: center;
+
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  
+}
+.product-box{
+  display:  1 0 30%;
+  flex-direction: column;
+
+  box-shadow: 0 2px 5px rgba(171, 50, 50, 0.1);
+  padding: 20px;
+  text-align: center;
+  margin: 10px ;
+  width: 300px;
+  border-radius: 10px;
+  background: #a9afac;
+
+
+  flex-direction: row;
+
+  align-items: center;
+
+  
+}
+
+.product-box img{
+  width: 100%;
+  height: 150px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+ 
+}
+
+.down-button, .up-button{
+  background-color: #c1b5b9;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 0.3em 0.7em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.down-button:hover, .up-button:hover{
+  background-color: #b38190;
+  cursor: pointer;
+}
+
+.extend{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.category, .type, .ingredient, .Origin{
+  margin-top: 2px;
+  font-size: 15px;
+  color: #221c1e;
+  font-weight: bolder;
+}
+
+.instruction{
+  margin-top: 5px;
+  font-size: 12px;
+  color: #2b2547;
+  font-weight: bolder;
+  
+}
+
+
