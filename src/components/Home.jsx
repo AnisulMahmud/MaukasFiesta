@@ -1,64 +1,41 @@
 import React from 'react'
 import { useState } from 'react'
-import { useEffect } from 'react'
 import {FaAngleDown, FaAngleUp} from 'react-icons/fa'
+import { useFetchProducts } from '../hooks/useFetchProducts'
 
 export const Home = () => {
 
 
 const [name, setName] = useState('')  
 const [toggle, setToggle] = useState(false)
-const [buttonClicked, setButtonClicked] = useState(false)
+const [buttonClicked, setButtonClicked] = useState({})
+const [url, setUrl] = useState('https://www.themealdb.com/api/json/v1/1/random.php')
+const [products, error, isLoaded] = useFetchProducts(url, toggle)
 
 
-const fetchResult = async (url) =>{
-    try{
+const handleSearch = (e) => {
 
-     const response = await fetch(url)
-     const products = await response.json()
-     if(toggle){
-        setProducts(products.drinks)
-     }
-     else{
-        setProducts(products.meals)
-     }
-     
-     console.log(products)
-
-     
-
-    } catch(error){
-        console.log(error)   
- }
-
-}
-const [products, setProducts] = useState([fetchResult()])
-
-
-
-useEffect(() => {
-
-    if(toggle){
-   fetchResult('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-    }
-    else{
-        fetchResult('https://www.themealdb.com/api/json/v1/1/random.php')
-    }
-}, [toggle]);
-
-
-const handleSearch = () => {
+    if(e.type === 'click' || (e.type === 'keydown' &&  e.key === 'Enter')){
      const url1 = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
     const url2 = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}` 
 
-    if(toggle){
-       fetchResult(url2)
+    const newUrl = toggle? url2 : url1
+    setUrl(newUrl)
     }
     else{
-       fetchResult(url1)
-    }  
+        return
+    }
 
 }
+
+// useEffect ( ()=>{
+     
+//     const randomMeal = 'https://www.themealdb.com/api/json/v1/1/random.php'
+//     const randomDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+//     const randomUrl = toggle? randomDrinks : randomMeal
+//     setUrl(randomUrl)
+// },[url,toggle] )
+
 
 const handleInputChange = (e) => {
     setName(e.target.value)
@@ -67,9 +44,14 @@ const handleInputChange = (e) => {
 }    
 
 const handleToggle = (e) => {
-    setToggle(e.target.checked)
-}
-
+    const newToggle = e.target.checked;
+    setToggle(newToggle);
+  
+    const randomMeal = 'https://www.themealdb.com/api/json/v1/1/random.php';
+    const randomDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    const randomUrl = newToggle ? randomDrinks : randomMeal;
+    setUrl(randomUrl);
+  }
 
 
   return (
@@ -80,6 +62,7 @@ const handleToggle = (e) => {
                  placeholder='Meal or Cocktail...'
                  value={name}
                  onChange={handleInputChange}
+                 onKeyDown={handleSearch}
             />
            <button className='submit' onClick={handleSearch}>Search
            </button>
@@ -95,9 +78,14 @@ const handleToggle = (e) => {
            
         </div>
       <div className='products-container'>
+
+      {
+        error &&
+        <div> {error} </div>
+      }
         {
      
-  
+        isLoaded ? <div className='loader'> </div> :
         products.map((product) => (
 
             toggle ? 
@@ -107,7 +95,7 @@ const handleToggle = (e) => {
             <h2>{product.strDrink}</h2>
 
             {
-                buttonClicked ?
+                buttonClicked[product.idDrink] ?
                 (
                     <div className='extend'>
                     <p className='category'>Category:{product.strCategory}</p>
@@ -123,10 +111,10 @@ const handleToggle = (e) => {
             }
             
             {
-                buttonClicked ?
+                buttonClicked[product.idDrink] ?
                 (
                     <button className='up-button' 
-                    onClick={ () => setButtonClicked(!buttonClicked)}> 
+                    onClick={ () => setButtonClicked({...buttonClicked, [product.idDrink]: false})}> 
                     <FaAngleUp/> 
                     </button>
 
@@ -134,7 +122,7 @@ const handleToggle = (e) => {
                 (
                     
                     <button className='down-button' 
-                    onClick={ () => setButtonClicked(!buttonClicked)}> 
+                    onClick={ () => setButtonClicked({...buttonClicked, [product.idDrink]: true})}> 
                     <FaAngleDown/> 
                     </button>
                 )
@@ -153,7 +141,7 @@ const handleToggle = (e) => {
           
 
             {
-                buttonClicked ?
+                buttonClicked[product.idMeal] ?
                 (
                     <div className='extend'>
                     <p className='category'>Category:{product.strCategory}</p>
@@ -169,10 +157,10 @@ const handleToggle = (e) => {
             }
             
             {
-                buttonClicked ?
+                buttonClicked[product.idMeal] ?
                 (
                     <button className='up-button' 
-                    onClick={ () => setButtonClicked(!buttonClicked)}> 
+                    onClick={ () => setButtonClicked({...buttonClicked, [product.idMeal]: false})}> 
                     <FaAngleUp/> 
                     </button>
 
@@ -180,7 +168,7 @@ const handleToggle = (e) => {
                 (
                     
                     <button className='down-button' 
-                    onClick={ () => setButtonClicked(!buttonClicked)}> 
+                    onClick={ () => setButtonClicked({...buttonClicked, [product.idMeal]: true})}> 
                     <FaAngleDown/> 
                     </button>
                 )
