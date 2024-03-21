@@ -15,6 +15,8 @@ const [products, error, isLoaded] = useFetchProducts(url, toggle)
 
 const handleSearch = (e) => {
 
+
+
     if(e.type === 'click' || (e.type === 'keydown' &&  e.key === 'Enter')){
      const url1 = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
     const url2 = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}` 
@@ -57,6 +59,7 @@ const handleToggle = (e) => {
   return (
     <div className='Home' >
     <div className="searchbar">
+        
             <input className='search-input'
                  type='text'
                  placeholder='Meal or Cocktail...'
@@ -86,7 +89,7 @@ const handleToggle = (e) => {
         {
      
         isLoaded ? <div className='loader'> </div> :
-        products.map((product) => (
+        products ? products.map((product) => (
 
             toggle ? 
             <div key={ product.idDrink}   className='product-box'> 
@@ -175,7 +178,7 @@ const handleToggle = (e) => {
             }
             </div>
          
-        ))
+        )) : <div className='no-result'>No Results Found</div>
     
     }
 

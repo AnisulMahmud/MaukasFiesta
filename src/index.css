@@ -43,7 +43,7 @@
   
 }
 .navbar h1 {
-  color: #99657a;
+  color: #8f596f;
   margin-right: auto;
   font-size: 30px;
   font-weight: bolder;
@@ -251,4 +251,15 @@
 @keyframes loader {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+.no-result {
+  text-align: center;
+  font-size: 20px;
+  color: #f8f3f4;
+  font-weight: bolder;
+  margin-top: 30px;
+  border:  5px solid;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #372f32;
 }
